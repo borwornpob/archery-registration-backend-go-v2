@@ -18,5 +18,4 @@ func main() {
 	router.GET("/accounts", handlers.GetAllAccount((db)))
 
 	router.Run(":8080")
-
 }
