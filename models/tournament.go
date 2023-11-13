@@ -14,5 +14,3 @@ type Tournament struct {
 	Category    string
 	Status      string    `gorm:"type:varchar(20)"`
 }
-
-// Additional methods or logic for tournaments can be added here.

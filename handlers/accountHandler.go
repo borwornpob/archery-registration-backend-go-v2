@@ -28,7 +28,7 @@ func UpdateAccount(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var account models.Account
 		if err := c.ShouldBindJSON(&account); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 

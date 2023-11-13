@@ -13,5 +13,3 @@ type Entry struct {
 	Range          string
 	PaymentStatus  string    `gorm:"type:varchar(20)"`
 }
-
-// You can add additional methods or custom logic related to entries here.
