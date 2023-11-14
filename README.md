@@ -29,4 +29,4 @@ Contributions are highly encouraged. If you wish to contribute, kindly fork the 
 This project is currently in active development. New features and improvements are being added regularly.
 
 ## Contact Information
-For further information, questions, or collaborations, please contact Borworn Pobpanich at borwornpob@gmail.com.
+For further information, questions, or collaborations, please contact Borworn Pobpanich at (borwornpob@gmail.com)[borwornpob@gmail.com].
