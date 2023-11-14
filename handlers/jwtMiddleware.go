@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/dgrijalva/jwt-go"
@@ -10,6 +12,10 @@ import (
 
 func JWTAuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
+
+		jwtKey := []byte(os.Getenv("JWT_KEY"))
+		fmt.Println("This is the start jwt: ",jwtKey)
+
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "No authorization header provided"})
@@ -28,12 +34,13 @@ func JWTAuthMiddleware() gin.HandlerFunc {
 
 	claims := &Claims{}
 
-	token, err := jwt.ParseWithClaims(tokenStr, claims, func(toekn *jwt.Token) (interface{}, error) {
-		return (jwtKey), nil
+	token, err := jwt.ParseWithClaims(tokenStr, claims, func(token *jwt.Token) (interface{}, error) {
+		fmt.Println("This is jwt:",jwtKey)
+		return jwtKey, nil
 	})
 
 	if err != nil || !token.Valid {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": err})
 		c.Abort()
 		return
 	}

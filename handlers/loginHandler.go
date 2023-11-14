@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"archery-registration/models"
+	"fmt"
 	"net/http"
 	"os"
 	"time"
@@ -10,8 +11,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
-
-var jwtKey = os.Getenv("JWT_KEY")
 
 type Credentials struct {
 	TelNumber string `json:"tel_number"`
@@ -27,6 +26,7 @@ func Login(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var creds Credentials
 		var user models.Account
+		jwtKey := []byte(os.Getenv("JWT_KEY"))
 
 		// Bind the JSON body to the credentials struct
 		if err := c.BindJSON(&creds); err != nil {
@@ -55,7 +55,9 @@ func Login(db *gorm.DB) gin.HandlerFunc {
 
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-		tokenString, err := token.SignedString([]byte(jwtKey))
+		fmt.Println(jwtKey)
+
+		tokenString, err := token.SignedString(jwtKey)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
