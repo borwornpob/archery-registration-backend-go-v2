@@ -15,3 +15,8 @@ type Account struct {
 	Birthdate time.Time
 	Password  string `gorm:"not null"`
 }
+
+func (a Account) ReturnSafeInfo() Account {
+	a.Password = ""
+	return a
+}

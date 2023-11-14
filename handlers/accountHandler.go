@@ -20,7 +20,7 @@ func RegisterAccount(db *gorm.DB) gin.HandlerFunc {
             return
         }
 
-        c.JSON(http.StatusCreated, account)
+        c.JSON(http.StatusCreated, account.ReturnSafeInfo())
     }
 }
 
@@ -37,7 +37,7 @@ func UpdateAccount(db *gorm.DB) gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(http.StatusOK, account)
+		c.JSON(http.StatusOK, account.ReturnSafeInfo())
 	}
 }
 
@@ -73,6 +73,6 @@ func GetAccountInfoFromTelnumber (db *gorm.DB) gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(http.StatusOK, account)
+		c.JSON(http.StatusOK, account.ReturnSafeInfo())
 	}
 }

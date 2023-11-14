@@ -19,13 +19,16 @@ func main() {
 	db.AutoMigrate(&models.Account{}, &models.Entry{}, &models.Tournament{})
 
 	router := gin.Default()
+	protected := router.Group("/").Use(handlers.JWTAuthMiddleware())
+
+	router.POST("/login", handlers.Login((db)))
 
 	// account routes
 	router.POST("/register", handlers.RegisterAccount((db)))
-	router.PUT("/update", handlers.UpdateAccount((db)))
+	protected.PUT("/update", handlers.UpdateAccount((db)))
 	router.GET("/account/:telnumber", handlers.GetAccountInfoFromTelnumber((db)))
 	router.GET("/accounts", handlers.GetAllAccount((db)))
-	router.DELETE("/delete/:telnumber", handlers.DeleteAccountFromTelnumber((db)))
+	protected.DELETE("/delete/:telnumber", handlers.DeleteAccountFromTelnumber((db)))
 
 	
 
