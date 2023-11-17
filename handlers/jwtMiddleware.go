@@ -14,7 +14,6 @@ func JWTAuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		jwtKey := []byte(os.Getenv("JWT_KEY"))
-		fmt.Println("This is the start jwt: ",jwtKey)
 
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
@@ -34,8 +33,7 @@ func JWTAuthMiddleware() gin.HandlerFunc {
 
 	claims := &Claims{}
 
-	token, err := jwt.ParseWithClaims(tokenStr, claims, func(token *jwt.Token) (interface{}, error) {
-		fmt.Println("This is jwt:",jwtKey)
+	token, err := jwt.ParseWithClaims(tokenStr, claims, func(token *jwt.Token) (interface{}, error) {\
 		return jwtKey, nil
 	})
 

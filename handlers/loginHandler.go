@@ -55,8 +55,6 @@ func Login(db *gorm.DB) gin.HandlerFunc {
 
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-		fmt.Println(jwtKey)
-
 		tokenString, err := token.SignedString(jwtKey)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
